@@ -5,17 +5,17 @@ from torch.utils.data import TensorDataset, DataLoader
 
 
 def gain_data_prep(data_missing):
-    '''Prepare input data with missing values as np.nan
+    """Prepare input data with missing values as np.nan
     for GAIN generator. Generate a tensor data and
     corresponding mask locating missing values by 0s.
 
     Args:
-    data_missing(np.array): input missing data with NaN values
+        data_missing(np.array): input missing data with NaN values
 
     Returns:
-    data_missing(pytorch.tensor): converted input
-    mask(pytorch.tensor): mask of data_missing, 0s mark missing values
-    '''
+        data_missing(pytorch.tensor): converted input
+        mask(pytorch.tensor): mask of data_missing, 0s mark missing values
+    """
     data_missing = data_missing.copy() 
     mask = np.isnan(data_missing)
     data_missing[mask] = 0

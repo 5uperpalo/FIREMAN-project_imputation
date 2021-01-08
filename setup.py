@@ -4,7 +4,7 @@ import sys
 
 from setuptools import find_packages, setup
 
-about_path = os.path.join(os.path.dirname(__file__), "revscoring/about.py")
+about_path = os.path.join(os.path.dirname(__file__), "fireman_imputation/about.py")
 exec(compile(open(about_path).read(), about_path, "exec"))
 
 
@@ -32,11 +32,6 @@ setup(
     description=__description__,  # noqa
     url=__url__,  # noqa
     license=__license__,  # noqa
-    entry_points={
-        'console_scripts': [
-            'revscoring = revscoring.revscoring:main',
-        ],
-    },
     packages=find_packages(),
     long_description=read('README.md'),
     long_description_content_type="text/markdown",

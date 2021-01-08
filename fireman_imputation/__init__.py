@@ -5,7 +5,6 @@ from pkg_resources import VersionConflict
 
 from .about import (__author__, __author_email__, __description__, __name__,
                     __url__, __version__)
-from .src import gain_train
 
 
 if sys.version_info <= (3, 0):
@@ -15,6 +14,5 @@ if sys.version_info <= (3, 0):
         platform.python_version())
 
 
-__all__ = [gain_train,
-           __name__, __version__, __author__,
+__all__ = [__name__, __version__, __author__,
            __author_email__, __description__, __url__]
