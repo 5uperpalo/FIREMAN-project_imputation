@@ -23,4 +23,10 @@
   * MAR (missing at random) - probability of a data point to be missing is not related to the missing data, but it is related to some of the observed data.Whether or not someone answered #13 on your survey has nothing to do with the missing values, but it does have to do with the values of some other variable. (A better name would be Missing Conditionally at Random)
   * MNAR (missing not at random) -  there is a relationship between the propensity of a value to be missing and its values
   * variants : random missing(% from DS), random missing with continuous segments(% from DS, min/max size of continuous segment, probability of max missing segment, mechanism of probabilities distribution from min to max segment - linear/exponential)
+  * add different than "traditional data imputation" scenarios with errors/distortions:
+      * sensor failures
+      * communication errors
+      * injected false data
+        * by accident
+        * by "intruder"
 * add variational autoencoders
