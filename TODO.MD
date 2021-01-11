@@ -20,16 +20,3 @@
   * interpolation(not usable for stream scenario)
   * Predictive mean matching, combines the idea of model-based imputation (regression imputation) and neighbour-based (KNN imputer).
   * Multiple Imputation (MI), one of the most popular MICE (multivariate imputation by chained equations) and a python implementation is available in the fancyimpute package.
-
-# Ideas in-progress
-* convolutional layers to catch data chracteristics from previous N samples
-  * the final data stream could be sent in high granularity to catch even slight glitches with a risk of missing samples as they would be imputed by DeepNet
-* add different than "traditional data imputation", e.g. create scenarios with errors/distortions:
-  * sensor failures
-  * communication errors
-  * injected false data
-    * by accident
-    * by "intruder"
-
-## Notes
-* nice project with some ideas : https://rmisstastic.netlify.app/
