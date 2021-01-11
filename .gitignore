@@ -20,7 +20,7 @@ ipython/.ipynb_checkpoints
 env/
 bin/
 build/
-docs/_build/
+#docs/_build/
 develop-eggs/
 dist/
 eggs/
