@@ -1,25 +1,24 @@
 Welcome to FIREMAN-project imputation repository documentation!
 ===============================================================
-.. automodule:: fireman_imputation
-
 Project Info:
 
 .. toctree::
    :maxdepth: 1
    :caption: Contents:
 
-  changelog
+   changelog
 
 
 Training modules
 ================
-.. automodule:: fireman_imputation.gain_training
+.. automodule:: fireman_imputation.GAIN
    :members:
 
 
 Utilities
 =========
-.. automodule:: fireman_imputation.src.gain_net
+.. automodule:: fireman_imputation.src.netGAIN
+   :members: 
 .. automodule:: fireman_imputation.src.utils
    :members: 
 

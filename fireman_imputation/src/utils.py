@@ -4,24 +4,23 @@ from torch import nn
 from torch.utils.data import TensorDataset, DataLoader
 
 
-def gain_data_prep(data_missing):
-    """Prepare input data with missing values as np.nan
+def dataPrepGAIN(data, mask):
+    '''Prepare input data with missing values as np.nan
     for GAIN generator. Generate a tensor data and
     corresponding mask locating missing values by 0s.
 
     Args:
-        data_missing(np.array): input missing data with NaN values
+        data(np.array): input data
+        mask(np.array): mask with values that are missing
 
     Returns:
-        data_missing(pytorch.tensor): converted input
-        mask(pytorch.tensor): mask of data_missing, 0s mark missing values
-    """
-    data_missing = data_missing.copy() 
-    mask = np.isnan(data_missing)
-    data_missing[mask] = 0
-
-    mask = 1-mask
-    mask = mask.astype(np.int)
+        (tuple):
+            - data_missing(pytorch.tensor): converted input
+            - mask(pytorch.tensor): mask of data_missing, 0s mark missing values
+    '''
+    data_missing = data.copy() 
+    mask_inv = 1 - mask
+    data_missing[mask_inv] = 0
 
     return torch.from_numpy(data_missing), torch.from_numpy(mask)
 
@@ -30,28 +29,29 @@ def binary_sampler(p, rows, cols):
     '''Sample binary random variables.
 
     Args:
-    p(float): probability, <0,1>
-    rows(int): the number of rows
-    cols(int): the number of columns
+        p(float): probability, <0,1>
+        rows(int): the number of rows
+        cols(int): the number of columns
 
     Returns:
-    binary_random_matrix: generated binary random matrix.
+        binary_random_matrix: generated binary random matrix.
     '''
     unif_random_matrix = np.random.uniform(0., 1., size=[rows, cols])
     binary_random_matrix = 1*(unif_random_matrix < p)
     return binary_random_matrix
 
 
-def mcar_gen(data, probability):
+def MCARgen(data, probability):
     '''Generate Missing Completely At Random data with given
-    probability from input data.
+    probability.
 
     Args:
-    data(np.array): input data
+        data(np.array): input data
 
     Returns:
-    data_missing(np.array): data with missing values
-    mask(np.array): mask of data_mising, 0s mark missing values
+        (tuple):
+            - data_missing(np.array): data with missing values
+            - mask(np.array): mask of data_mising, 0s mark missing values
     '''
     no, dim = data.shape
     mask = binary_sampler(1-probability, no, dim)
@@ -60,24 +60,25 @@ def mcar_gen(data, probability):
     return data_missing, mask
 
 
-def cust_dataloader(data_missing, mask, batch_size, device, shuffle=True):
+def dataloaderCust(data_missing, mask, batch_size, device, shuffle=True):
     '''Helper function to load and shuffle tensors into models in
-    batches
+    batches.
 
     Args:
-    data_missing(np.array): data with missing values
-    mask(np.array): mask of data_mising, 0s mark missing values
-    batch_size(int): size of batch
-    device(str): cuda or cpu to be used for computation
-    shuffle(boolean): if the tensors should be shuffled before load
+        data_missing(np.array): data with missing values
+        mask(np.array): mask of data_mising, 1s mark missing values
+        batch_size(int): size of batch
+        device(str): cuda or cpu to be used for computation
+        shuffle(boolean): if the tensors should be shuffled before load
 
     Returns:
-    DataLoader: PyTorch DataLoader object
+        DataLoader: PyTorch DataLoader object
     '''
     # added .float() as I was getting expected scalar type Float but found Double (numpy stores as Double? https://discuss.pytorch.org/t/pytorch-why-is-float-needed-here-for-runtimeerror-expected-scalar-type-float-but-found-double/98741)
     data_missing = torch.Tensor(data_missing).float().to(device)
-    mask = torch.Tensor(mask).float().to(device)
-    tensor_data_mask = TensorDataset(data_missing, mask)
+    mask_inv = 1-mask
+    mask_inv = torch.Tensor(mask_inv).float().to(device)
+    tensor_data_mask = TensorDataset(data_missing, mask_inv)
     return DataLoader(tensor_data_mask, batch_size=batch_size, shuffle=shuffle)
 
 
@@ -88,10 +89,10 @@ def init_weights(NetModel):
     how to use: NetModel.apply(init_weights)
 
     Args:
-    NetModel(nn.Module): torch module
+        NetModel(nn.Module): torch module
 
     Returns:
-    NetModel(nn.Module): torch module with initilized weights
+        NetModel(nn.Module): torch module with initilized weights
     '''
     if type(NetModel) == nn.Linear:
         # maybe weight.data?, also maybe gain?

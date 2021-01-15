@@ -82,8 +82,9 @@
               
             
             
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html">CHANGELOG</a></li>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
 
             
@@ -154,11 +155,13 @@
 
 <div class="genindex-jumpbox">
  <a href="#B"><strong>B</strong></a>
- | <a href="#C"><strong>C</strong></a>
+ | <a href="#D"><strong>D</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
  | <a href="#I"><strong>I</strong></a>
+ | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
+ | <a href="#T"><strong>T</strong></a>
  
 </div>
 <h2 id="B">B</h2>
@@ -169,10 +172,16 @@
   </ul></td>
 </tr></table>
 
-<h2 id="C">C</h2>
+<h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="index.html#fireman_imputation.src.utils.cust_dataloader">cust_dataloader() (in module fireman_imputation.src.utils)</a>
+      <li><a href="index.html#fireman_imputation.src.utils.dataloaderCust">dataloaderCust() (in module fireman_imputation.src.utils)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="index.html#fireman_imputation.src.utils.dataPrepGAIN">dataPrepGAIN() (in module fireman_imputation.src.utils)</a>
+</li>
+      <li><a href="index.html#fireman_imputation.src.netGAIN.Discriminator">Discriminator (class in fireman_imputation.src.netGAIN)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -181,33 +190,32 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li>
-    fireman_imputation
+    fireman_imputation.GAIN
 
       <ul>
-        <li><a href="index.html#module-fireman_imputation">module</a>
+        <li><a href="index.html#module-fireman_imputation.GAIN">module</a>
 </li>
       </ul></li>
       <li>
-    fireman_imputation.gain_training
+    fireman_imputation.src.netGAIN
 
       <ul>
-        <li><a href="index.html#module-fireman_imputation.gain_training">module</a>
+        <li><a href="index.html#module-fireman_imputation.src.netGAIN">module</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li>
-    fireman_imputation.src.gain_net
-
-      <ul>
-        <li><a href="index.html#module-fireman_imputation.src.gain_net">module</a>
-</li>
-      </ul></li>
-      <li>
     fireman_imputation.src.utils
 
       <ul>
         <li><a href="index.html#module-fireman_imputation.src.utils">module</a>
+</li>
+      </ul></li>
+      <li><a href="index.html#fireman_imputation.src.netGAIN.Discriminator.forward">forward() (fireman_imputation.src.netGAIN.Discriminator method)</a>
+
+      <ul>
+        <li><a href="index.html#fireman_imputation.src.netGAIN.Generator.forward">(fireman_imputation.src.netGAIN.Generator method)</a>
 </li>
       </ul></li>
   </ul></td>
@@ -216,7 +224,15 @@
 <h2 id="G">G</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="index.html#fireman_imputation.src.utils.gain_data_prep">gain_data_prep() (in module fireman_imputation.src.utils)</a>
+      <li><a href="index.html#fireman_imputation.GAIN.GAIN_main">GAIN_main() (in module fireman_imputation.GAIN)</a>
+</li>
+      <li><a href="index.html#fireman_imputation.GAIN.GAINtune_main">GAINtune_main() (in module fireman_imputation.GAIN)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="index.html#fireman_imputation.src.netGAIN.Generator">Generator (class in fireman_imputation.src.netGAIN)</a>
+</li>
+      <li><a href="index.html#fireman_imputation.src.netGAIN.get_gain_net_block">get_gain_net_block() (in module fireman_imputation.src.netGAIN)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -229,24 +245,46 @@
   </ul></td>
 </tr></table>
 
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="index.html#fireman_imputation.src.netGAIN.lossD">lossD() (in module fireman_imputation.src.netGAIN)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="index.html#fireman_imputation.src.netGAIN.lossG">lossG() (in module fireman_imputation.src.netGAIN)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="index.html#fireman_imputation.src.utils.mcar_gen">mcar_gen() (in module fireman_imputation.src.utils)</a>
+      <li><a href="index.html#fireman_imputation.src.utils.MCARgen">MCARgen() (in module fireman_imputation.src.utils)</a>
 </li>
       <li>
     module
 
       <ul>
-        <li><a href="index.html#module-fireman_imputation">fireman_imputation</a>
+        <li><a href="index.html#module-fireman_imputation.GAIN">fireman_imputation.GAIN</a>
 </li>
-        <li><a href="index.html#module-fireman_imputation.gain_training">fireman_imputation.gain_training</a>
-</li>
-        <li><a href="index.html#module-fireman_imputation.src.gain_net">fireman_imputation.src.gain_net</a>
+        <li><a href="index.html#module-fireman_imputation.src.netGAIN">fireman_imputation.src.netGAIN</a>
 </li>
         <li><a href="index.html#module-fireman_imputation.src.utils">fireman_imputation.src.utils</a>
 </li>
       </ul></li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="index.html#fireman_imputation.src.netGAIN.testGAIN">testGAIN() (in module fireman_imputation.src.netGAIN)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="index.html#fireman_imputation.src.netGAIN.trainGAIN">trainGAIN() (in module fireman_imputation.src.netGAIN)</a>
+</li>
   </ul></td>
 </tr></table>
 

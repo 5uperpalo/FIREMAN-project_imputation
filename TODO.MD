@@ -8,7 +8,6 @@
   * MNAR
   * variants : random missing(% from DS), random missing with continuous segments(% from DS, min/max size of continuous segment, probability of max missing segment, mechanism of probabilities distribution from min to max segment - linear/exponential)
 * compare results with paper
-* finish documentation
 * add variational autoencoders
 * add simple [imputation methods](https://medium.com/@Cambridge_Spark/tutorial-introduction-to-missing-data-imputation-4912b51c34eb) that only look at the distribution of the values of the variable with missing entries:
   * Mean

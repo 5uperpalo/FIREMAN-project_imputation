@@ -38,7 +38,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="CHANGELOG" href="changelog.html" /> 
+    <link rel="next" title="Changelog" href="changelog.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -83,8 +83,9 @@
               
             
             
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html">CHANGELOG</a></li>
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
 
             
@@ -152,58 +153,326 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-fireman_imputation">
-<span id="welcome-to-fireman-project-imputation-repository-documentation"></span><h1>Welcome to FIREMAN-project imputation repository documentation!<a class="headerlink" href="#module-fireman_imputation" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="welcome-to-fireman-project-imputation-repository-documentation">
+<h1>Welcome to FIREMAN-project imputation repository documentation!<a class="headerlink" href="#welcome-to-fireman-project-imputation-repository-documentation" title="Permalink to this headline">¶</a></h1>
 <p>Project Info:</p>
 <div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="changelog.html">CHANGELOG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
 </ul>
 </div>
 </div>
-<div class="section" id="module-fireman_imputation.gain_training">
-<span id="training-modules"></span><h1>Training modules<a class="headerlink" href="#module-fireman_imputation.gain_training" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-fireman_imputation.GAIN">
+<span id="training-modules"></span><h1>Training modules<a class="headerlink" href="#module-fireman_imputation.GAIN" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="fireman_imputation.GAIN.GAIN_main">
+<code class="sig-prename descclassname">fireman_imputation.GAIN.</code><code class="sig-name descname">GAIN_main</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">config</span></em>, <em class="sig-param"><span class="n">data_train</span></em>, <em class="sig-param"><span class="n">mask_train</span></em>, <em class="sig-param"><span class="n">data_test</span></em>, <em class="sig-param"><span class="n">mask_test</span></em>, <em class="sig-param"><span class="n">show_prog</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">raytune</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">cont</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.GAIN.GAIN_main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Full training procedure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> (<em>dict</em>) – dictionary with config parameters</p></li>
+<li><p><strong>data_train</strong> – input data(numpy array)</p></li>
+<li><p><strong>mask_train</strong> – binary mask marking points that will be imputed (numpy array)</p></li>
+<li><p><strong>data_test</strong> – input data(numpy array)</p></li>
+<li><p><strong>mask_test</strong> – binary mask marking points that will be imputed (numpy array)</p></li>
+<li><p><strong>show_prog</strong> (<em>boolean</em>) – if the progress should be printed</p></li>
+<li><p><strong>raytune</strong> (<em>boolean</em>) – for the hyperparameter tuning using Raytune</p></li>
+<li><p><strong>cont</strong> (<em>boolean</em>) – if the preexisting models should go through extended training,
+in that case specify model parameters in <a href="#id1"><span class="problematic" id="id2">**</span></a>kwargs</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>netG(nn.Module): Generator network</p></li>
+<li><p>netD(nn.Module): Discriminator network</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(tuple)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="fireman_imputation.GAIN.GAINtune_main">
+<code class="sig-prename descclassname">fireman_imputation.GAIN.</code><code class="sig-name descname">GAINtune_main</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">raytune_config</span></em>, <em class="sig-param"><span class="n">data_train</span></em>, <em class="sig-param"><span class="n">mask_train</span></em>, <em class="sig-param"><span class="n">data_test</span></em>, <em class="sig-param"><span class="n">mask_test</span></em>, <em class="sig-param"><span class="n">tune_iter</span><span class="o">=</span><span class="default_value">5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.GAIN.GAINtune_main" title="Permalink to this definition">¶</a></dt>
+<dd><p>GAIN Tunning with Raytune.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>raytune_config</strong> (<em>dict</em>) – dictionary with config parameterr arrays</p></li>
+<li><p><strong>data_train</strong> – input data(numpy array)</p></li>
+<li><p><strong>mask_train</strong> – binary mask marking points that will be imputed (numpy array)</p></li>
+<li><p><strong>data_test</strong> – input data(numpy array)</p></li>
+<li><p><strong>mask_test</strong> – binary mask marking points that will be imputed (numpy array)</p></li>
+<li><p><strong>tune_iter</strong> – stopping condition</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Best Generator network</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>netG(nn.Module)</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
-<div class="section" id="module-fireman_imputation.src.gain_net">
-<span id="utilities"></span><h1>Utilities<a class="headerlink" href="#module-fireman_imputation.src.gain_net" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-fireman_imputation.src.netGAIN">
+<span id="utilities"></span><h1>Utilities<a class="headerlink" href="#module-fireman_imputation.src.netGAIN" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt id="fireman_imputation.src.netGAIN.Discriminator">
+<em class="property">class </em><code class="sig-prename descclassname">fireman_imputation.src.netGAIN.</code><code class="sig-name descname">Discriminator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_dim</span></em>, <em class="sig-param"><span class="n">hidden_dim</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.src.netGAIN.Discriminator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates GAIN discriminator Net with 3 layers. Input, hidden, output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_dim</strong> – number of neurons in input layer(size of input data)</p></li>
+<li><p><strong>hidden_dim</strong> – number of neurons in hidden layer</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>generator Net</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Net(nn.Module)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="fireman_imputation.src.netGAIN.Discriminator.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">imputed_data</span></em>, <em class="sig-param"><span class="n">hint_matrix</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.src.netGAIN.Discriminator.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="fireman_imputation.src.netGAIN.Generator">
+<em class="property">class </em><code class="sig-prename descclassname">fireman_imputation.src.netGAIN.</code><code class="sig-name descname">Generator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_dim</span></em>, <em class="sig-param"><span class="n">hidden_dim</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.src.netGAIN.Generator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create GAIN generator Net with 3 layers. Input, hidden, output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_dim</strong> – number of neurons in input layer(size of input data)</p></li>
+<li><p><strong>hidden_dim</strong> – number of neurons in hidden layer</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>generator Net</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Net(nn.Module)</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="fireman_imputation.src.netGAIN.Generator.forward">
+<code class="sig-name descname">forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_w_noise</span></em>, <em class="sig-param"><span class="n">mask</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.src.netGAIN.Generator.forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the computation performed at every call.</p>
+<p>Should be overridden by all subclasses.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Although the recipe for forward pass needs to be defined within
+this function, one should call the <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code> instance afterwards
+instead of this since the former takes care of running the
+registered hooks while the latter silently ignores them.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="fireman_imputation.src.netGAIN.get_gain_net_block">
+<code class="sig-prename descclassname">fireman_imputation.src.netGAIN.</code><code class="sig-name descname">get_gain_net_block</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_dim</span></em>, <em class="sig-param"><span class="n">output_dim</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.src.netGAIN.get_gain_net_block" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple helper function that return [Linear, ReLU]
+block for Net module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_dim</strong> – input block dimension</p></li>
+<li><p><strong>output_dim</strong> – out block dimension</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>converted input</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>block(nn.Sequential)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="fireman_imputation.src.netGAIN.lossD">
+<code class="sig-prename descclassname">fireman_imputation.src.netGAIN.</code><code class="sig-name descname">lossD</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">netG</span></em>, <em class="sig-param"><span class="n">netD</span></em>, <em class="sig-param"><span class="n">mask</span></em>, <em class="sig-param"><span class="n">data_w_noise</span></em>, <em class="sig-param"><span class="n">hint_matrix</span></em>, <em class="sig-param"><span class="n">disc_criterion</span><span class="o">=</span><span class="default_value">BCELoss()</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.src.netGAIN.lossD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Discriminator loss function</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="fireman_imputation.src.netGAIN.lossG">
+<code class="sig-prename descclassname">fireman_imputation.src.netGAIN.</code><code class="sig-name descname">lossG</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">netG</span></em>, <em class="sig-param"><span class="n">netD</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">mask</span></em>, <em class="sig-param"><span class="n">data_w_noise</span></em>, <em class="sig-param"><span class="n">hint_matrix</span></em>, <em class="sig-param"><span class="n">alpha</span></em>, <em class="sig-param"><span class="n">reduction</span><span class="o">=</span><span class="default_value">'mean'</span></em>, <em class="sig-param"><span class="n">gen_criterion</span><span class="o">=</span><span class="default_value">MSELoss()</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.src.netGAIN.lossG" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generator loss function</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="fireman_imputation.src.netGAIN.testGAIN">
+<code class="sig-prename descclassname">fireman_imputation.src.netGAIN.</code><code class="sig-name descname">testGAIN</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">netG</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">mask</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.src.netGAIN.testGAIN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Procedure to test GAIN generator network perfoarmance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>netG</strong> – Generator Net</p></li>
+<li><p><strong>data</strong> – input data(numpy array)</p></li>
+<li><p><strong>mask</strong> – mask marking data that will be imputed(numpy array)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Root Means Square Error between original and imputed data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>rmse</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="fireman_imputation.src.netGAIN.trainGAIN">
+<code class="sig-prename descclassname">fireman_imputation.src.netGAIN.</code><code class="sig-name descname">trainGAIN</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">netG</span></em>, <em class="sig-param"><span class="n">netD</span></em>, <em class="sig-param"><span class="n">optimG</span></em>, <em class="sig-param"><span class="n">optimD</span></em>, <em class="sig-param"><span class="n">dataloader</span></em>, <em class="sig-param"><span class="n">data_test</span></em>, <em class="sig-param"><span class="n">mask_test</span></em>, <em class="sig-param"><span class="n">hint_rate</span></em>, <em class="sig-param"><span class="n">alpha</span></em>, <em class="sig-param"><span class="n">epochs</span></em>, <em class="sig-param"><span class="n">show_prog</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">raytune</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">checkpoint_dir</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.src.netGAIN.trainGAIN" title="Permalink to this definition">¶</a></dt>
+<dd><p>Procedure to train GAIN network</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>netG</strong> – Generator Net</p></li>
+<li><p><strong>netD</strong> – Discriminator Net</p></li>
+<li><p><strong>optimG</strong> – Generator optimization function</p></li>
+<li><p><strong>optimD</strong> – Discriminator optimization function</p></li>
+<li><p><strong>dataloader</strong> – PyTorch DataLoader object</p></li>
+<li><p><strong>data_test</strong> (<em>numpy array</em>) – test data</p></li>
+<li><p><strong>mask_test</strong> (<em>numpy array</em>) – test data mask(1 = imputed value)</p></li>
+<li><p><strong>hint_rate</strong> – per orig. GAIN paper</p></li>
+<li><p><strong>alpha</strong> – per orig. GAIN paper</p></li>
+<li><p><strong>epochs</strong> – number of training epochs</p></li>
+<li><p><strong>show_prog</strong> – show intermidiate progress True/False</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>lossG: last Generator loss value</p></li>
+<li><p>lossD: last Discriminator loss value</p></li>
+<li><p>lossMSE: last Generator MSE value</p></li>
+<li><p>netG(nn.Module): trained Generator</p></li>
+<li><p>netD(nn.Module): trained Discriminator</p></li>
+<li><p>rmse: RMSE of test data</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(tuple)</p>
+</dd>
+</dl>
+</dd></dl>
+
 <span class="target" id="module-fireman_imputation.src.utils"></span><dl class="py function">
+<dt id="fireman_imputation.src.utils.MCARgen">
+<code class="sig-prename descclassname">fireman_imputation.src.utils.</code><code class="sig-name descname">MCARgen</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">probability</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.src.utils.MCARgen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate Missing Completely At Random data with given
+probability.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>np.array</em>) – input data</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>data_missing(np.array): data with missing values</p></li>
+<li><p>mask(np.array): mask of data_mising, 0s mark missing values</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(tuple)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="fireman_imputation.src.utils.binary_sampler">
 <code class="sig-prename descclassname">fireman_imputation.src.utils.</code><code class="sig-name descname">binary_sampler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">p</span></em>, <em class="sig-param"><span class="n">rows</span></em>, <em class="sig-param"><span class="n">cols</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.src.utils.binary_sampler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sample binary random variables.</p>
-<p>Args:
-p(float): probability, &lt;0,1&gt;
-rows(int): the number of rows
-cols(int): the number of columns</p>
-<p>Returns:
-binary_random_matrix: generated binary random matrix.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p</strong> (<em>float</em>) – probability, &lt;0,1&gt;</p></li>
+<li><p><strong>rows</strong> (<em>int</em>) – the number of rows</p></li>
+<li><p><strong>cols</strong> (<em>int</em>) – the number of columns</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>generated binary random matrix.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>binary_random_matrix</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
-<dt id="fireman_imputation.src.utils.cust_dataloader">
-<code class="sig-prename descclassname">fireman_imputation.src.utils.</code><code class="sig-name descname">cust_dataloader</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_missing</span></em>, <em class="sig-param"><span class="n">mask</span></em>, <em class="sig-param"><span class="n">batch_size</span></em>, <em class="sig-param"><span class="n">device</span></em>, <em class="sig-param"><span class="n">shuffle</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.src.utils.cust_dataloader" title="Permalink to this definition">¶</a></dt>
-<dd><p>Helper function to load and shuffle tensors into models in
-batches</p>
-<p>Args:
-data_missing(np.array): data with missing values
-mask(np.array): mask of data_mising, 0s mark missing values
-batch_size(int): size of batch
-device(str): cuda or cpu to be used for computation
-shuffle(boolean): if the tensors should be shuffled before load</p>
-<p>Returns:
-DataLoader: PyTorch DataLoader object</p>
-</dd></dl>
-
-<dl class="py function">
-<dt id="fireman_imputation.src.utils.gain_data_prep">
-<code class="sig-prename descclassname">fireman_imputation.src.utils.</code><code class="sig-name descname">gain_data_prep</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_missing</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.src.utils.gain_data_prep" title="Permalink to this definition">¶</a></dt>
+<dt id="fireman_imputation.src.utils.dataPrepGAIN">
+<code class="sig-prename descclassname">fireman_imputation.src.utils.</code><code class="sig-name descname">dataPrepGAIN</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">mask</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.src.utils.dataPrepGAIN" title="Permalink to this definition">¶</a></dt>
 <dd><p>Prepare input data with missing values as np.nan
 for GAIN generator. Generate a tensor data and
 corresponding mask locating missing values by 0s.</p>
-<p>Args:
-data_missing(np.array): input missing data with NaN values</p>
-<p>Returns:
-data_missing(pytorch.tensor): converted input
-mask(pytorch.tensor): mask of data_missing, 0s mark missing values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>np.array</em>) – input data</p></li>
+<li><p><strong>mask</strong> (<em>np.array</em>) – mask with values that are missing</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>data_missing(pytorch.tensor): converted input</p></li>
+<li><p>mask(pytorch.tensor): mask of data_missing, 0s mark missing values</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(tuple)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="fireman_imputation.src.utils.dataloaderCust">
+<code class="sig-prename descclassname">fireman_imputation.src.utils.</code><code class="sig-name descname">dataloaderCust</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_missing</span></em>, <em class="sig-param"><span class="n">mask</span></em>, <em class="sig-param"><span class="n">batch_size</span></em>, <em class="sig-param"><span class="n">device</span></em>, <em class="sig-param"><span class="n">shuffle</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.src.utils.dataloaderCust" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper function to load and shuffle tensors into models in
+batches.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_missing</strong> (<em>np.array</em>) – data with missing values</p></li>
+<li><p><strong>mask</strong> (<em>np.array</em>) – mask of data_mising, 1s mark missing values</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em>) – size of batch</p></li>
+<li><p><strong>device</strong> (<em>str</em>) – cuda or cpu to be used for computation</p></li>
+<li><p><strong>shuffle</strong> (<em>boolean</em>) – if the tensors should be shuffled before load</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>PyTorch DataLoader object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>DataLoader</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -213,22 +482,17 @@ mask(pytorch.tensor): mask of data_missing, 0s mark missing values</p>
 the weights are initialized automatically by Kaiming He:
 <a class="reference external" href="https://stackoverflow.com/a/56773737/8147433">https://stackoverflow.com/a/56773737/8147433</a>
 how to use: NetModel.apply(init_weights)</p>
-<p>Args:
-NetModel(nn.Module): torch module</p>
-<p>Returns:
-NetModel(nn.Module): torch module with initilized weights</p>
-</dd></dl>
-
-<dl class="py function">
-<dt id="fireman_imputation.src.utils.mcar_gen">
-<code class="sig-prename descclassname">fireman_imputation.src.utils.</code><code class="sig-name descname">mcar_gen</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">probability</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.src.utils.mcar_gen" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate Missing Completely At Random data with given
-probability from input data.</p>
-<p>Args:
-data(np.array): input data</p>
-<p>Returns:
-data_missing(np.array): data with missing values
-mask(np.array): mask of data_mising, 0s mark missing values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>NetModel</strong> (<em>nn.Module</em>) – torch module</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>torch module with initilized weights</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>NetModel(nn.Module)</p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -247,7 +511,7 @@ mask(np.array): mask of data_mising, 0s mark missing values</p>
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="changelog.html" class="btn btn-neutral float-right" title="CHANGELOG" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="changelog.html" class="btn btn-neutral float-right" title="Changelog" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

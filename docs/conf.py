@@ -12,7 +12,7 @@
 #
 import os
 import sys
-import fireman_imputation
+#import fireman_imputation
 
 sys.path.insert(0, os.path.abspath('..'))
 sys.setrecursionlimit(1500)
@@ -34,7 +34,7 @@ master_doc = 'index'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.coverage', 'sphinx.ext.napoleon'] # noqa
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.coverage', 'sphinx.ext.napoleon', 'm2r2'] # noqa
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -44,8 +44,12 @@ templates_path = ['_templates']
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '_templates']
 
+# The suffix(es) of source filenames.
+# You can specify multiple suffix as a list of string:
+source_suffix = ['.rst', '.md']
+
 # exclude external libraries that are not in python or in project
-# autodoc_mock_imports = ["amplpy"]
+# autodoc_mock_imports = [""]
 
 # -- Options for HTML output -------------------------------------------------
 
