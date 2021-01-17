@@ -11,6 +11,8 @@ notes included in the repository:
 ## Example usage notebooks:
 * [GAIN example notebook](https://github.com/5uperpalo/FIREMAN-project_imputation/blob/main/examples/gain_example.ipynb)
 * [GAIN training using Raytune](https://github.com/5uperpalo/FIREMAN-project_imputation/blob/main/examples/gain_training_using_raytune.ipynb)
+  * solution support us of Raytune paramater search framework, which can be monitored by Dashboard and progress reporters
+  ![Raytune dashboard](img/raytune_dashboard.png)
 
 ## install:
 ```
@@ -33,3 +35,11 @@ Under docs/:
 pip install -r doc-requirements.txt
 make html
 ```
+
+## example data used in this repository was stolen from author of the the orginal GAIN paper
+
+- [Author implementation in Tensorflow v1](https://github.com/jsyoon0823/GAIN)
+- [SPAM dataset](https://github.com/jsyoon0823/GAIN/blob/master/data/spam.csv)
+
+## example output available in notebooks
+![SPAM dataset imputation](img/imputation_example.png)
