@@ -1,6 +1,8 @@
 # FIREMAN-project data imputation repository
 
-Data imputation scripts and notebooks related to [FIREMAN project](https://fireman-project.eu/) and main [FIREMAN-project repository](https://github.com/5uperpalo/FIREMAN-project/)  
+Data imputation scripts and notebooks related to [FIREMAN project](https://fireman-project.eu/) and main [FIREMAN-project repository](https://github.com/5uperpalo/FIREMAN-project/).
+Reporsitory is a work-in-progress project, that is part of FIREMAN project activities. Currently it includes GAIN object oriented impelementation using PyTorch and its integration with Raytune distributed parameter searching framework.
+
 notes included in the repository:
 * [data imputation](https://github.com/5uperpalo/FIREMAN-project_imputation/blob/main/data_imputation-notes.MD)
 * [deep learning notes](https://github.com/5uperpalo/FIREMAN-project_imputation/blob/main/dl-notes.MD)
@@ -8,6 +10,7 @@ notes included in the repository:
 
 ## Example usage notebooks:
 * [GAIN example notebook](https://github.com/5uperpalo/FIREMAN-project_imputation/blob/main/examples/gain_example.ipynb)
+* [GAIN training using Raytune](https://github.com/5uperpalo/FIREMAN-project_imputation/blob/main/examples/gain_training_using_raytune.ipynb)
 
 ## install:
 ```

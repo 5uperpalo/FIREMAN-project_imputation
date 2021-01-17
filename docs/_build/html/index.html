@@ -197,8 +197,29 @@ in that case specify model parameters in <a href="#id1"><span class="problematic
 </dd></dl>
 
 <dl class="py function">
+<dt id="fireman_imputation.GAIN.GAIN_netG_forward">
+<code class="sig-prename descclassname">fireman_imputation.GAIN.</code><code class="sig-name descname">GAIN_netG_forward</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">netG</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">missing_val</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.GAIN.GAIN_netG_forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Procedure to test GAIN generator network perfoarmance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>netG</strong> – Generator Net</p></li>
+<li><p><strong>data</strong> (<em>numpy array</em>) – input data with missing values</p></li>
+<li><p><strong>missing_str</strong> – string that marks missing values([0,Nan,…])</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>imputed input data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>data_imputed(numpy array)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="fireman_imputation.GAIN.GAINtune_main">
-<code class="sig-prename descclassname">fireman_imputation.GAIN.</code><code class="sig-name descname">GAINtune_main</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">raytune_config</span></em>, <em class="sig-param"><span class="n">data_train</span></em>, <em class="sig-param"><span class="n">mask_train</span></em>, <em class="sig-param"><span class="n">data_test</span></em>, <em class="sig-param"><span class="n">mask_test</span></em>, <em class="sig-param"><span class="n">tune_iter</span><span class="o">=</span><span class="default_value">5</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.GAIN.GAINtune_main" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">fireman_imputation.GAIN.</code><code class="sig-name descname">GAINtune_main</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">raytune_config</span></em>, <em class="sig-param"><span class="n">data_train</span></em>, <em class="sig-param"><span class="n">mask_train</span></em>, <em class="sig-param"><span class="n">data_test</span></em>, <em class="sig-param"><span class="n">mask_test</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.GAIN.GAINtune_main" title="Permalink to this definition">¶</a></dt>
 <dd><p>GAIN Tunning with Raytune.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -255,6 +276,27 @@ registered hooks while the latter silently ignores them.</p>
 </div>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="py function">
+<dt id="fireman_imputation.src.netGAIN.GAIN_rmse">
+<code class="sig-prename descclassname">fireman_imputation.src.netGAIN.</code><code class="sig-name descname">GAIN_rmse</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">netG</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">mask</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.src.netGAIN.GAIN_rmse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Procedure to test GAIN generator network performance using RMSE</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>netG</strong> – Generator Net</p></li>
+<li><p><strong>data</strong> – input data(numpy array)</p></li>
+<li><p><strong>mask</strong> – mask marking data that will be imputed(numpy array)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Root Means Square Error between original and imputed data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>rmse</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py class">
@@ -320,29 +362,8 @@ block for Net module.</p>
 
 <dl class="py function">
 <dt id="fireman_imputation.src.netGAIN.lossG">
-<code class="sig-prename descclassname">fireman_imputation.src.netGAIN.</code><code class="sig-name descname">lossG</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">netG</span></em>, <em class="sig-param"><span class="n">netD</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">mask</span></em>, <em class="sig-param"><span class="n">data_w_noise</span></em>, <em class="sig-param"><span class="n">hint_matrix</span></em>, <em class="sig-param"><span class="n">alpha</span></em>, <em class="sig-param"><span class="n">reduction</span><span class="o">=</span><span class="default_value">'mean'</span></em>, <em class="sig-param"><span class="n">gen_criterion</span><span class="o">=</span><span class="default_value">MSELoss()</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.src.netGAIN.lossG" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">fireman_imputation.src.netGAIN.</code><code class="sig-name descname">lossG</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">netG</span></em>, <em class="sig-param"><span class="n">netD</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">mask</span></em>, <em class="sig-param"><span class="n">data_w_noise</span></em>, <em class="sig-param"><span class="n">hint_matrix</span></em>, <em class="sig-param"><span class="n">alpha</span></em>, <em class="sig-param"><span class="n">reduction</span><span class="o">=</span><span class="default_value">'sum'</span></em>, <em class="sig-param"><span class="n">gen_criterion</span><span class="o">=</span><span class="default_value">MSELoss()</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.src.netGAIN.lossG" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generator loss function</p>
-</dd></dl>
-
-<dl class="py function">
-<dt id="fireman_imputation.src.netGAIN.testGAIN">
-<code class="sig-prename descclassname">fireman_imputation.src.netGAIN.</code><code class="sig-name descname">testGAIN</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">netG</span></em>, <em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">mask</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.src.netGAIN.testGAIN" title="Permalink to this definition">¶</a></dt>
-<dd><p>Procedure to test GAIN generator network perfoarmance</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>netG</strong> – Generator Net</p></li>
-<li><p><strong>data</strong> – input data(numpy array)</p></li>
-<li><p><strong>mask</strong> – mask marking data that will be imputed(numpy array)</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Root Means Square Error between original and imputed data</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>rmse</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -383,13 +404,36 @@ block for Net module.</p>
 </dd></dl>
 
 <span class="target" id="module-fireman_imputation.src.utils"></span><dl class="py function">
+<dt id="fireman_imputation.src.utils.HINTmatrix_gen">
+<code class="sig-prename descclassname">fireman_imputation.src.utils.</code><code class="sig-name descname">HINTmatrix_gen</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mask</span></em>, <em class="sig-param"><span class="n">hint_rate</span></em>, <em class="sig-param"><span class="n">orig_paper</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.src.utils.HINTmatrix_gen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate Hint matrix for Discriminator with the given
+hint_rate that defines fraction of mask that is copied to hint_matrix.
+More aboout hinting mechanism implementation vs orig. paper:
+<a class="reference external" href="https://github.com/jsyoon0823/GAIN/issues/2">https://github.com/jsyoon0823/GAIN/issues/2</a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mask</strong> (<em>np.array</em>) – </p></li>
+<li><p><strong>hint_rate</strong> (<em>float</em>) – probability, &lt;0,1&gt;</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>hint_matrix(np.array)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="fireman_imputation.src.utils.MCARgen">
 <code class="sig-prename descclassname">fireman_imputation.src.utils.</code><code class="sig-name descname">MCARgen</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">probability</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.src.utils.MCARgen" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generate Missing Completely At Random data with given
 probability.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>data</strong> (<em>np.array</em>) – input data</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>np.array</em>) – input data</p></li>
+<li><p><strong>probability</strong> (<em>float</em>) – probability, &lt;0,1&gt;</p></li>
+</ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><ul class="simple">
@@ -400,27 +444,6 @@ probability.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>(tuple)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="fireman_imputation.src.utils.binary_sampler">
-<code class="sig-prename descclassname">fireman_imputation.src.utils.</code><code class="sig-name descname">binary_sampler</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">p</span></em>, <em class="sig-param"><span class="n">rows</span></em>, <em class="sig-param"><span class="n">cols</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.src.utils.binary_sampler" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sample binary random variables.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>p</strong> (<em>float</em>) – probability, &lt;0,1&gt;</p></li>
-<li><p><strong>rows</strong> (<em>int</em>) – the number of rows</p></li>
-<li><p><strong>cols</strong> (<em>int</em>) – the number of columns</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>generated binary random matrix.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>binary_random_matrix</p>
 </dd>
 </dl>
 </dd></dl>
@@ -480,8 +503,7 @@ batches.</p>
 <code class="sig-prename descclassname">fireman_imputation.src.utils.</code><code class="sig-name descname">init_weights</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">NetModel</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.src.utils.init_weights" title="Permalink to this definition">¶</a></dt>
 <dd><p>Helper function to initialize model weights. By default
 the weights are initialized automatically by Kaiming He:
-<a class="reference external" href="https://stackoverflow.com/a/56773737/8147433">https://stackoverflow.com/a/56773737/8147433</a>
-how to use: NetModel.apply(init_weights)</p>
+<a class="reference external" href="https://stackoverflow.com/a/56773737/8147433">https://stackoverflow.com/a/56773737/8147433</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>NetModel</strong> (<em>nn.Module</em>) – torch module</p>
@@ -493,6 +515,8 @@ how to use: NetModel.apply(init_weights)</p>
 <dd class="field-odd"><p>NetModel(nn.Module)</p>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<p>NetModel.apply(init_weights)</p>
 </dd></dl>
 
 </div>

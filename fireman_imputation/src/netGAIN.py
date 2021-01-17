@@ -4,13 +4,14 @@ from torch import nn
 from . import utils
 import numpy as np
 from sklearn import metrics
+import os
 
 '''
 Define loss functions criterions
 https://pytorch.org/docs/stable/generated/torch.nn.BCEWithLogitsLoss.html#torch.nn.BCEWithLogitsLoss
 - reduction can be mean or sum, mean was in github implementation - original paper used 'sum'
 '''
-reduction = 'mean'
+reduction = 'sum'
 disc_criterion = nn.BCELoss(reduction=reduction)
 gen_criterion = nn.MSELoss(reduction=reduction)
 
@@ -147,7 +148,7 @@ def trainGAIN(netG, netD, optimG, optimD,
             - netD(nn.Module): trained Discriminator
             - rmse: RMSE of test data
     '''
-    if checkpoint_dir is not None:
+    if checkpoint_dir != '':
         path = os.path.join(checkpoint_dir, "checkpoint")
         checkpoint = torch.load(path)
         netG.load_state_dict(checkpoint["netGmodel"])
@@ -159,7 +160,7 @@ def trainGAIN(netG, netD, optimG, optimD,
         for i, (data, mask) in enumerate(dataloader):
             # /100 as noise was added in the original paper from uniform distribution <0,0.01>
             noise = (1-mask) * torch.rand(mask.shape)/100
-            hint_matrix = mask * utils.binary_sampler(hint_rate, mask.shape[0], mask.shape[1])
+            hint_matrix = utils.HINTmatrix_gen(mask, hint_rate, orig_paper=False)
             data_w_noise = data + noise
 
             optimD.zero_grad()
@@ -181,7 +182,9 @@ def trainGAIN(netG, netD, optimG, optimD,
                     print('Iter: {}'.format(i))
                     print('Train_loss: {:.4}'.format(np.sqrt(lossMSE_train_curr.item())))
                     print()
-        rmse = testGAIN(netG, data_test, mask_test) 
+        
+        rmse = GAIN_rmse(netG, data_test, mask_test) 
+        
         if raytune is True:
             with tune.checkpoint_dir(epoch) as checkpoint_dir:
                 path = os.path.join(checkpoint_dir, 'checkpoint')
@@ -192,14 +195,14 @@ def trainGAIN(netG, netD, optimG, optimD,
                     'optimG': optimG.state_dict(),
                     'epoch': epoch,
                 }, path)
-            tune.report(lossG=lossG_curr, lossD=lossD_curr, lossMSE=lossMSE_train_curr, rmse=rmse)
-    
-    if raytune is not True:
-        return lossG_curr.item(), lossD_curr.item(), lossMSE_train_curr.item(), netG, netD, rmse
+            tune.report(lossG=lossG_curr.item(), lossD=lossD_curr.item(), 
+                        lossMSE=lossMSE_train_curr.item(), rmse=rmse)
+
+    return lossG_curr.item(), lossD_curr.item(), lossMSE_train_curr.item(), netG, netD, rmse
 
 
-def testGAIN(netG, data, mask):
-    '''Procedure to test GAIN generator network perfoarmance 
+def GAIN_rmse(netG, data, mask):
+    '''Procedure to test GAIN generator network performance using RMSE
 
     Args:
         netG: Generator Net 
@@ -215,9 +218,10 @@ def testGAIN(netG, data, mask):
     data_imputed = data_imputed.detach().numpy()
 
     # merge the imputed data(zero out rest in imputed data) and data with missing values
-    data_missing_0 = data.copy()
-    data_missing_0[mask] = 0
-    data_imputed = mask*data_imputed + data_missing_0
+    # data_missing_0 = data.copy()
+    # data_missing_0[mask==0] = 0
+    # data_imputed = (1-mask)*data_imputed + data_missing_0
+    data_imputed = (1-mask)*data_imputed + mask*data
 
     # compute error
     # https://scikit-learn.org/stable/modules/generated/sklearn.metrics.mean_squared_error.html

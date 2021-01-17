@@ -13,7 +13,7 @@ class AutoencoderNet(nn.Module):
 
     def forward(self, imputed_data, hint_matrix):
         '''
-        Function for completing a forward pass of the GainNet
+        Function for completing a forward pass of the AutoencoderNet
         '''
         input_data = torch.cat(tensors=[imputed_data, hint_matrix], dim=1).float()
         return self.net(input_data)

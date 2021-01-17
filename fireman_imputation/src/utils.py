@@ -19,27 +19,33 @@ def dataPrepGAIN(data, mask):
             - mask(pytorch.tensor): mask of data_missing, 0s mark missing values
     '''
     data_missing = data.copy() 
-    mask_inv = 1 - mask
-    data_missing[mask_inv] = 0
+    data_missing[mask==0] = 0
 
     return torch.from_numpy(data_missing), torch.from_numpy(mask)
 
-
-def binary_sampler(p, rows, cols):
-    '''Sample binary random variables.
+def HINTmatrix_gen(mask, hint_rate, orig_paper=True):
+    '''Generate Hint matrix for Discriminator with the given
+    hint_rate that defines fraction of mask that is copied to hint_matrix.
+    More aboout hinting mechanism implementation vs orig. paper:
+    https://github.com/jsyoon0823/GAIN/issues/2
 
     Args:
-        p(float): probability, <0,1>
-        rows(int): the number of rows
-        cols(int): the number of columns
+        mask(np.array):
+        hint_rate(float): probability, <0,1>
 
     Returns:
-        binary_random_matrix: generated binary random matrix.
+        hint_matrix(np.array)
     '''
-    unif_random_matrix = np.random.uniform(0., 1., size=[rows, cols])
-    binary_random_matrix = 1*(unif_random_matrix < p)
-    return binary_random_matrix
+    no, dim = mask.shape
+    unif_random_matrix = np.random.uniform(0., 1., size=[no, dim])
 
+    if orig_paper is True:
+        hint_matrix = (unif_random_matrix >= hint_rate).astype(int) * 0.5
+        hint_matrix = (unif_random_matrix < hint_rate).astype(int) * mask.numpy() + hint_matrix
+    else:
+        hint_matrix = np.zeros([no, dim])
+        hint_matrix = (unif_random_matrix < hint_rate).astype(int) * mask.numpy() + hint_matrix
+    return torch.from_numpy(hint_matrix)
 
 def MCARgen(data, probability):
     '''Generate Missing Completely At Random data with given
@@ -47,6 +53,7 @@ def MCARgen(data, probability):
 
     Args:
         data(np.array): input data
+        probability(float): probability, <0,1>
 
     Returns:
         (tuple):
@@ -54,9 +61,13 @@ def MCARgen(data, probability):
             - mask(np.array): mask of data_mising, 0s mark missing values
     '''
     no, dim = data.shape
-    mask = binary_sampler(1-probability, no, dim)
+    
+    unif_random_matrix = np.random.uniform(0., 1., size=[no, dim])
+    mask = (unif_random_matrix > probability).astype(int)
+
     data_missing = data.copy()
     data_missing[mask == 0] = np.nan
+
     return data_missing, mask
 
 
@@ -76,9 +87,8 @@ def dataloaderCust(data_missing, mask, batch_size, device, shuffle=True):
     '''
     # added .float() as I was getting expected scalar type Float but found Double (numpy stores as Double? https://discuss.pytorch.org/t/pytorch-why-is-float-needed-here-for-runtimeerror-expected-scalar-type-float-but-found-double/98741)
     data_missing = torch.Tensor(data_missing).float().to(device)
-    mask_inv = 1-mask
-    mask_inv = torch.Tensor(mask_inv).float().to(device)
-    tensor_data_mask = TensorDataset(data_missing, mask_inv)
+    mask = torch.Tensor(mask).float().to(device)
+    tensor_data_mask = TensorDataset(data_missing, mask)
     return DataLoader(tensor_data_mask, batch_size=batch_size, shuffle=shuffle)
 
 
@@ -86,13 +96,15 @@ def init_weights(NetModel):
     '''Helper function to initialize model weights. By default
     the weights are initialized automatically by Kaiming He:
     https://stackoverflow.com/a/56773737/8147433
-    how to use: NetModel.apply(init_weights)
 
     Args:
         NetModel(nn.Module): torch module
 
     Returns:
         NetModel(nn.Module): torch module with initilized weights
+
+    Example:
+        NetModel.apply(init_weights)
     '''
     if type(NetModel) == nn.Linear:
         # maybe weight.data?, also maybe gain?
