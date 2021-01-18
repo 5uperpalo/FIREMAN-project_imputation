@@ -1,7 +1,10 @@
 # FIREMAN-project data imputation repository
 
 Data imputation scripts and notebooks related to [FIREMAN project](https://fireman-project.eu/) and main [FIREMAN-project repository](https://github.com/5uperpalo/FIREMAN-project/).
-Reporsitory is a work-in-progress project, that is part of FIREMAN project activities. Currently it includes GAIN object oriented impelementation using PyTorch and its integration with Raytune distributed parameter searching framework.
+Reporsitory is a work-in-progress project that is part of FIREMAN project activities. Currently it includes GAIN object oriented impelementation using PyTorch and its integration with Raytune distributed parameter searching framework.
+* [original implementation](https://github.com/jsyoon0823/GAIN)
+* [GAIN paper](http://proceedings.mlr.press/v80/yoon18a/yoon18a.pdf)
+* any code review and suggestions are welcome
 
 notes included in the repository:
 * [data imputation](https://github.com/5uperpalo/FIREMAN-project_imputation/blob/main/data_imputation-notes.MD)
@@ -36,10 +39,9 @@ pip install -r doc-requirements.txt
 make html
 ```
 
-## example data used in this repository was stolen from author of the the orginal GAIN paper
-
-- [author implementation in Tensorflow v1](https://github.com/jsyoon0823/GAIN)
-- [SPAM dataset](https://github.com/jsyoon0823/GAIN/blob/master/data/spam.csv)
+## example dataset
+Used in original repository
+- [UCI Spam](https://archive.ics.uci.edu/ml/datasets/Spambase)
 
 ## example output available in notebooks
 ![SPAM dataset imputation](img/imputation_example.png)
