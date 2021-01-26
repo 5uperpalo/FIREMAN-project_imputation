@@ -2,6 +2,7 @@ import numpy as np
 import torch
 from torch import nn
 from torch.utils.data import TensorDataset, DataLoader
+import random
 
 
 def dataPrepGAIN(data, mask):
@@ -22,6 +23,7 @@ def dataPrepGAIN(data, mask):
     data_missing[mask==0] = 0
 
     return torch.from_numpy(data_missing), torch.from_numpy(mask)
+
 
 def HINTmatrix_gen(mask, hint_rate, orig_paper=True):
     '''Generate Hint matrix for Discriminator with the given
@@ -47,8 +49,9 @@ def HINTmatrix_gen(mask, hint_rate, orig_paper=True):
         hint_matrix = (unif_random_matrix < hint_rate).astype(int) * mask.numpy() + hint_matrix
     return torch.from_numpy(hint_matrix)
 
+
 def MCARgen(data, probability):
-    '''Generate Missing Completely At Random data with given
+    '''Generate Missing Completely At Random(MCAR) data with given
     probability.
 
     Args:
@@ -69,6 +72,63 @@ def MCARgen(data, probability):
     data_missing[mask == 0] = np.nan
 
     return data_missing, mask
+
+
+def MCARgen_cont(data, probability, cont_segments, cont_segments_distrib=None):
+    '''Generate MCAR data with continuous segments with predefined probabilities.
+
+    Args:
+        data(np.array): input data
+        probability(float): probability, <0,1>
+        cont_segments(list): list of continuous segment sizes 
+        cont_segments_distrib(list): probabilities of segments sizes, 
+        if not set -> uniform
+
+    Returns:
+        (tuple):
+            - data_missing(np.array): data with missing values
+            - mask(np.array): mask of data_mising, 0s mark missing values
+    '''
+    data_missing, mask = MCARgen(data, probability)
+    no, dim = mask.shape
+    # replace 1s with 0s and vice versa so we can easily track number of missing values by sum()
+    mask = 1-mask
+    ones_per_col = sum(mask)
+    temp = 0
+    new_mask = []
+    for sum_col_ones in ones_per_col:
+        # keeps temporary count of ones - there can be leftover ones from previous column
+        temp += sum_col_ones
+        # create "large enough" numpy array with given disctribution of given continuous segment sizes
+        cont_segments_values = np.array(random.choices(cont_segments, cont_segments_distrib, k=no))
+        # filter out segment sizes which cummulative sum is max number of 1s in a column
+        cont_segments_values = cont_segments_values[cont_segments_values.cumsum()<=temp]
+        # create temporary column mask
+        temp_new_mask = np.zeros(no)
+        for val in cont_segments_values:
+            if temp-val>=0:
+                # find the indices with 0s, shuffle them and iterate over them
+                zero_indices = np.where(temp_new_mask==0)[0]
+                random.shuffle(zero_indices)
+                for zero_ind in zero_indices:
+                    # if there is enough 0s to make continuous 1s segment + at least 1 zero
+                    # before and after segment(or they are at the beginning/end) so we have
+                    # non-connecting/non-overlapping segments
+                    # + the size of segment must be the size of "val"
+                    if (sum(temp_new_mask[zero_ind:(zero_ind+val+1)])==0) and (sum(temp_new_mask[(zero_ind-1):(zero_ind+val)])==0) and (len(temp_new_mask[zero_ind:(zero_ind+val)])==val):
+                        temp_new_mask[zero_ind:(zero_ind+val)] = 1
+                        temp-=val
+                        break
+        new_mask.append(temp_new_mask)
+    
+    new_mask = np.array(new_mask).T
+    # replace 1s with 0s back so 0s mark missing values
+    new_mask = 1 - new_mask
+    
+    data_missing = data.copy()
+    data_missing[new_mask == 0] = np.nan
+
+    return data_missing, new_mask
 
 
 def dataloaderCust(data_missing, mask, batch_size, device, shuffle=True):
