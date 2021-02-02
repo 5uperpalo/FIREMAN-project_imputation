@@ -81,8 +81,7 @@ def MCARgen_cont(data, probability, cont_segments, cont_segments_distrib=None):
         data(np.array): input data
         probability(float): probability, <0,1>
         cont_segments(list): list of continuous segment sizes 
-        cont_segments_distrib(list): probabilities of segments sizes, 
-        if not set -> uniform
+        cont_segments_distrib(list): probabilities of segments sizes, if not set -> uniform
 
     Returns:
         (tuple):

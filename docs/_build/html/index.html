@@ -426,13 +426,39 @@ More aboout hinting mechanism implementation vs orig. paper:
 <dl class="py function">
 <dt id="fireman_imputation.src.utils.MCARgen">
 <code class="sig-prename descclassname">fireman_imputation.src.utils.</code><code class="sig-name descname">MCARgen</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">probability</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.src.utils.MCARgen" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate Missing Completely At Random data with given
+<dd><p>Generate Missing Completely At Random(MCAR) data with given
 probability.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>np.array</em>) – input data</p></li>
 <li><p><strong>probability</strong> (<em>float</em>) – probability, &lt;0,1&gt;</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>data_missing(np.array): data with missing values</p></li>
+<li><p>mask(np.array): mask of data_mising, 0s mark missing values</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(tuple)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="fireman_imputation.src.utils.MCARgen_cont">
+<code class="sig-prename descclassname">fireman_imputation.src.utils.</code><code class="sig-name descname">MCARgen_cont</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">probability</span></em>, <em class="sig-param"><span class="n">cont_segments</span></em>, <em class="sig-param"><span class="n">cont_segments_distrib</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#fireman_imputation.src.utils.MCARgen_cont" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate MCAR data with continuous segments with predefined probabilities.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>np.array</em>) – input data</p></li>
+<li><p><strong>probability</strong> (<em>float</em>) – probability, &lt;0,1&gt;</p></li>
+<li><p><strong>cont_segments</strong> (<em>list</em>) – list of continuous segment sizes</p></li>
+<li><p><strong>cont_segments_distrib</strong> (<em>list</em>) – probabilities of segments sizes, if not set -&gt; uniform</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

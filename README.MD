@@ -1,4 +1,4 @@
-# FIREMAN-project data imputation repository
+# <img src="https://github.com/5uperpalo/FIREMAN-project_imputation/blob/main/img/logo-fireman.png" height="64" />FIREMAN-project data imputation repository
 
 Data imputation scripts and notebooks related to [FIREMAN project](https://fireman-project.eu/) and main [FIREMAN-project repository](https://github.com/5uperpalo/FIREMAN-project/).
 Reporsitory is a work-in-progress project that is part of FIREMAN project activities. Currently it includes GAIN object oriented impelementation using PyTorch and its integration with Raytune distributed parameter searching framework.
